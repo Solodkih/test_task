@@ -1,10 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { ListTasks } from './ListTasks';
+import store from './redux/store';
 
 export default function App() {
   return (
-    <Provider>
-      <div>223</div>
+    <Provider store={store}>
+      <ListTasks />
     </Provider>
   );
 }
