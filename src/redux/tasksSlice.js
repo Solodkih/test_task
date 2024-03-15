@@ -6,10 +6,17 @@ export const tasksSlice = createSlice({
     { done: false, name: 'test1', id: crypto.randomUUID() },
     { done: true, name: 'test2', id: crypto.randomUUID() },
   ],
-  reducers: {},
+  reducers: {
+    switchChecked: (state, { payload: { id, done } }) => {
+      const task = state.find((elem) => {
+        return id === elem.id;
+      });
+      task.done = done;
+    },
+  },
 });
 
-export const {} = tasksSlice.actions;
+export const { switchChecked } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
 
