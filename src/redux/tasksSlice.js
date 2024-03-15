@@ -2,7 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export const tasksSlice = createSlice({
   name: 'tasks',
-  initialState: [],
+  initialState: [
+    { done: false, name: 'test1', id: crypto.randomUUID() },
+    { done: true, name: 'test2', id: crypto.randomUUID() },
+  ],
   reducers: {},
 });
 
