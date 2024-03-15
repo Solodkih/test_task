@@ -13,10 +13,13 @@ export const tasksSlice = createSlice({
       });
       task.done = done;
     },
+    addTask: (state, { payload }) => {
+      state.push(payload);
+    },
   },
 });
 
-export const { switchChecked } = tasksSlice.actions;
+export const { switchChecked, addTask } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
 
