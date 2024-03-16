@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   getAllTasks,
@@ -6,12 +6,21 @@ import {
   addTask,
   removeTask,
   changeName,
+  setAllTasks,
 } from './redux/tasksSlice';
 
 export function ListTasks() {
   const arrayTasks = useSelector(getAllTasks);
   const dispatch = useDispatch();
   const [task, setTask] = useState('');
+
+  useEffect(() => {
+    const json = localStorage.getItem('array-tasks');
+    const array = JSON.parse(json);
+    if (array) {
+      dispatch(setAllTasks(array));
+    }
+  }, []);
 
   const handleOnChange = function (event) {
     setTask(event.target.value);
@@ -32,6 +41,21 @@ export function ListTasks() {
       </ul>
       <input type="text" onChange={handleOnChange} value={task} />
       <button onClick={handleOnClick}>Добавить задачу</button>
+      <button
+        onClick={() => {
+          const json = JSON.stringify(arrayTasks);
+          localStorage.setItem('array-tasks', json);
+        }}
+      >
+        Сохранить в локал сторадж
+      </button>
+      <button
+        onClick={() => {
+          localStorage.clear();
+        }}
+      >
+        Сброс хранилища
+      </button>
     </>
   );
 }

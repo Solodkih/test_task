@@ -28,10 +28,14 @@ export const tasksSlice = createSlice({
       });
       task.name = name;
     },
+    setAllTasks: (_, { payload: arrayTasks }) => {
+      return arrayTasks;
+    },
   },
 });
 
-export const { switchChecked, addTask, removeTask, changeName } = tasksSlice.actions;
+export const { switchChecked, addTask, removeTask, changeName, setAllTasks } =
+  tasksSlice.actions;
 
 export default tasksSlice.reducer;
 
