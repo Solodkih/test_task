@@ -16,10 +16,22 @@ export const tasksSlice = createSlice({
     addTask: (state, { payload }) => {
       state.push(payload);
     },
+    removeTask: (state, { payload: id }) => {
+      const index = state.findIndex((elem) => {
+        return elem.id === id;
+      });
+      if (index !== -1) state.splice(index, 1);
+    },
+    changeName: (state, { payload: { id, name } }) => {
+      const task = state.find((elem) => {
+        return id === elem.id;
+      });
+      task.name = name;
+    },
   },
 });
 
-export const { switchChecked, addTask } = tasksSlice.actions;
+export const { switchChecked, addTask, removeTask, changeName } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
 
