@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  switchChecked,
-  removeTask,
-  changeName,
-  setAllTasks,
-} from './redux/tasksSlice';
+import { setAllTasks } from '../redux/tasksSlice';
+
+import useChangeTask from './useChangeTask';
 
 export const Task = function ({
   done,
@@ -17,30 +14,15 @@ export const Task = function ({
 }) {
   const dispatch = useDispatch();
 
-  const [canChange, setChange] = useState(false);
-  const [value, setValue] = useState(name);
-
-  const handleClickCheckbox = function (e) {
-    dispatch(switchChecked({ id, done: !done }));
-  };
-
-  const handleClickRemoveTask = function (e) {
-    dispatch(removeTask(id));
-  };
-
-  const handleClickChangeTask = function (e) {
-    setChange(!canChange);
-    setValue(name);
-  };
-
-  const handleClickSaveTask = function (e) {
-    dispatch(changeName({ id, name: value }));
-    setChange(false);
-  };
-
-  const handleChangeChangeTask = function (e) {
-    setValue(e.target.value);
-  };
+  const [
+    handleClickCheckbox,
+    handleClickRemoveTask,
+    handleClickChangeTask,
+    handleClickSaveTask,
+    handleChangeChangeTask,
+    canChange,
+    value,
+  ] = useChangeTask(done, name, id);
 
   return (
     <li

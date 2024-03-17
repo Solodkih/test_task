@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllTasks, addTask } from './redux/tasksSlice';
+import { getAllTasks, addTask } from '../redux/tasksSlice';
 
-import { Task } from './Task';
+import { Task } from '../Task/Task';
 import useFilterTasks from './useFilterTasks';
 import useLocalStorage from './useLocalStorage';
 
