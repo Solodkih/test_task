@@ -19,7 +19,7 @@ export const tasksSlice = createSlice({
       task.done = done;
     },
     addTask: (state, { payload }) => {
-      state.push(payload);
+      state.unshift(payload);
     },
     removeTask: (state, { payload: id }) => {
       const index = state.findIndex((elem) => {

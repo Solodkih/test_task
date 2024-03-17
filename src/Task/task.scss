@@ -1,0 +1,26 @@
+.task {
+  min-height: 55px;
+  padding: 5px;
+  display: flex;
+  width: 90%;
+  margin: auto;
+  background-color: #dbe2ef;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 20px;
+  overflow: hidden;
+  border-radius: 5px;
+
+  &_label {
+    overflow: hidden;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-wrap: wrap;
+  }
+}
+
+.task img{
+  height: 55px;
+}

@@ -2,14 +2,9 @@ import React from 'react';
 
 import useChangeTask from './useChangeTask';
 import useDragAndDrop from './useDragAndDrop';
+import './task.scss';
 
-export const Task = function ({
-  done,
-  name,
-  id,
-  showTasks,
-}) {
-
+export const Task = function ({ done, name, id, showTasks }) {
   const [
     handleClickCheckbox,
     handleClickRemoveTask,
@@ -30,6 +25,7 @@ export const Task = function ({
 
   return (
     <li
+      className="task"
       key={id}
       draggable="true"
       onDragStart={handleDragStart}
@@ -38,18 +34,34 @@ export const Task = function ({
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
-      <input id={id} checked={done} type="checkbox" onClick={handleClickCheckbox} />
-      {!canChange && <label onClick={handleClickCheckbox}>{name}</label>}
+      <input checked={done} type="checkbox" onClick={handleClickCheckbox} />
+      {!canChange && (
+        <label className="task_label" onClick={handleClickCheckbox}>
+          {name}
+        </label>
+      )}
       {canChange && (
-        <input id={id} type="text" onChange={handleChangeChangeTask} value={value} />
+        <input
+          className="task_label"
+          type="text"
+          onChange={handleChangeChangeTask}
+          value={value}
+        />
       )}
       <button onClick={canChange ? handleClickSaveTask : handleClickChangeTask}>
-        {canChange ? 'Сохранить' : 'Править'}
+        {canChange ? (
+          <img src="./save-svgrepo-com.svg" alt="save" />
+        ) : (
+          <img src="./pen-svgrepo-com.svg" alt="change" />
+        )}
       </button>
       <button onClick={canChange ? handleClickChangeTask : handleClickRemoveTask}>
-        {canChange ? 'Отменить правку' : 'Удалить задачу'}
+        {canChange ? (
+          <img src="./cross-svgrepo-com.svg" alt="cansel" />
+        ) : (
+          <img src="./delete-2-svgrepo-com.svg" alt="remove" />
+        )}
       </button>
     </li>
   );
 };
-
