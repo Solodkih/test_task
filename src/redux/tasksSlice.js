@@ -3,8 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 export const tasksSlice = createSlice({
   name: 'tasks',
   initialState: [
-    { done: false, name: 'test1', id: crypto.randomUUID() },
-    { done: true, name: 'test2', id: crypto.randomUUID() },
+    { done: true, name: 'test1', id: '1111' },
+    { done: false, name: 'test2', id: '2222' },
+    { done: true, name: 'test3', id: '3333' },
+    { done: false, name: 'test4', id: '4444' },
   ],
   reducers: {
     switchChecked: (state, { payload: { id, done } }) => {

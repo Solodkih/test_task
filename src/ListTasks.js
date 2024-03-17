@@ -13,6 +13,8 @@ export function ListTasks() {
   const arrayTasks = useSelector(getAllTasks);
   const dispatch = useDispatch();
   const [task, setTask] = useState('');
+  const [saveDragId, setSaveDragId] = useState(0);
+
 
   useEffect(() => {
     const json = localStorage.getItem('array-tasks');
@@ -36,7 +38,14 @@ export function ListTasks() {
       Список задач
       <ul>
         {arrayTasks.map((elem) => {
-          return <ItemList {...elem} dispatch={dispatch} />;
+          return (
+            <ItemList
+              {...elem}
+              setSaveDragId={setSaveDragId}
+              dispatch={dispatch}
+              arrayTasks={arrayTasks}
+            />
+          );
         })}
       </ul>
       <input type="text" onChange={handleOnChange} value={task} />
@@ -60,7 +69,7 @@ export function ListTasks() {
   );
 }
 
-const ItemList = function ({ done, name, id, dispatch }) {
+const ItemList = function ({ done, name, id, dispatch, setSaveDragId, arrayTasks }) {
   const [canChange, setChange] = useState(false);
   const [value, setValue] = useState(name);
 
@@ -87,7 +96,36 @@ const ItemList = function ({ done, name, id, dispatch }) {
   };
 
   return (
-    <li key={id}>
+    <li
+      key={id}
+      draggable="true"
+      onDragStart={(e) => {
+        setSaveDragId(id);
+      }}
+      onDragLeave={(e) => {
+      }}
+      onDragEnd={(e) => {
+        e.currentTarget.style.background = 'blue';
+      }}
+      onDragOver={(e) => {
+        e.preventDefault();
+        e.currentTarget.style.background = 'red';
+      }}
+      onDrop={(e) => {
+        const newArray = [...arrayTasks];
+        const indexDeleteElem = newArray.findIndex((elem) => {
+          return elem.id === setSaveDragId;
+        });
+        const [elem] = newArray.splice(indexDeleteElem, 1);
+        const indexPutElem = newArray.findIndex((elem) => {
+          return elem.id === id;
+        });
+        newArray.splice(indexPutElem, 0, elem);
+        dispatch(setAllTasks(newArray));
+
+        e.preventDefault();
+      }}
+    >
       <input id={id} checked={done} type="checkbox" onClick={handleClickCheckbox} />
       {!canChange && <label onClick={handleClickCheckbox}>{name}</label>}
       {canChange && (
