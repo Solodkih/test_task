@@ -1,2 +1,6 @@
-bundle.js.map
+./bundle.js.map
+./bundle.js
+./style.css
+./style.css.map
+
 
