@@ -10,17 +10,39 @@
   margin-top: 20px;
   overflow: hidden;
   border-radius: 5px;
+  font-size: 20px;
+  font-family: 'Ubuntu', sans-serif;
 
   &_label {
+    position: relative;
     overflow: hidden;
     flex-grow: 1;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
     text-wrap: wrap;
+    font-size: 20px;
+    font-family: 'Ubuntu', sans-serif;
+    margin-left: 25px;
+  }
+
+  &_image__hide {
+    display: none;
+  }
+
+  &_image__show {
+    display: block;
   }
 }
 
-.task img{
+.task > input {
+  border-radius: 5px;
+}
+
+.task > input[type='checkbox'] {
+  display: none;
+}
+
+.task img {
   height: 55px;
 }

@@ -34,7 +34,19 @@ export const Task = function ({ done, name, id, showTasks }) {
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
-      <input checked={done} type="checkbox" onClick={handleClickCheckbox} />
+      <input checked={done} type="checkbox" onChange={handleClickCheckbox} />
+      <img
+        className={`task_image__${done ? 'show' : 'hide'}`}
+        src="./checked-svgrepo-com.svg"
+        alt="checked"
+        onClick={handleClickCheckbox}
+      />
+      <img
+        className={`task_image__${done ? 'hide' : 'show'}`}
+        src="./radio-button-unchecked-svgrepo-com.svg"
+        alt="unchecked"
+        onClick={handleClickCheckbox}
+      />
       {!canChange && (
         <label className="task_label" onClick={handleClickCheckbox}>
           {name}

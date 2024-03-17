@@ -30,15 +30,17 @@
   }
   &_add > input {
     flex-grow: 1;
-    font-size: 16px;
+    flex-shrink: 5;
+    font-size: 20px;
+    font-family: 'Ubuntu', sans-serif;
   }
   &_buttons {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 10%;
+    padding-right: 10%;
   }
 }
 
@@ -52,6 +54,7 @@ hr {
   border-left: none;
   border-bottom: none;
   width: 92%;
+  margin-bottom: 20px;
 }
 ul {
   list-style-type: none;
