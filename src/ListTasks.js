@@ -15,7 +15,6 @@ export function ListTasks() {
   const [task, setTask] = useState('');
   const [saveDragId, setSaveDragId] = useState(0);
 
-
   useEffect(() => {
     const json = localStorage.getItem('array-tasks');
     const array = JSON.parse(json);
@@ -42,6 +41,7 @@ export function ListTasks() {
             <ItemList
               {...elem}
               setSaveDragId={setSaveDragId}
+              saveDragId={saveDragId}
               dispatch={dispatch}
               arrayTasks={arrayTasks}
             />
@@ -69,7 +69,15 @@ export function ListTasks() {
   );
 }
 
-const ItemList = function ({ done, name, id, dispatch, setSaveDragId, arrayTasks }) {
+const ItemList = function ({
+  done,
+  name,
+  id,
+  dispatch,
+  saveDragId,
+  setSaveDragId,
+  arrayTasks,
+}) {
   const [canChange, setChange] = useState(false);
   const [value, setValue] = useState(name);
 
@@ -102,8 +110,7 @@ const ItemList = function ({ done, name, id, dispatch, setSaveDragId, arrayTasks
       onDragStart={(e) => {
         setSaveDragId(id);
       }}
-      onDragLeave={(e) => {
-      }}
+      onDragLeave={(e) => {}}
       onDragEnd={(e) => {
         e.currentTarget.style.background = 'blue';
       }}
@@ -114,7 +121,7 @@ const ItemList = function ({ done, name, id, dispatch, setSaveDragId, arrayTasks
       onDrop={(e) => {
         const newArray = [...arrayTasks];
         const indexDeleteElem = newArray.findIndex((elem) => {
-          return elem.id === setSaveDragId;
+          return elem.id === saveDragId;
         });
         const [elem] = newArray.splice(indexDeleteElem, 1);
         const indexPutElem = newArray.findIndex((elem) => {
