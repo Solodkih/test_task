@@ -88,6 +88,13 @@ export function ListTasks() {
       >
         Не выполненные
       </button>
+      <button
+        onClick={() => {
+          setFilter({ check: false, uncheck: !filter.uncheck });
+        }}
+      >
+        Все задачи
+      </button>
     </>
   );
 }
