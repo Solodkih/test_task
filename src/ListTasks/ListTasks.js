@@ -67,7 +67,7 @@ export function ListTasks() {
       </div>
       <ul>
         {showTasks.map((elem) => {
-          return <Task {...elem} showTasks={showTasks} />;
+          return <Task key={elem.id} {...elem} showTasks={showTasks} />;
         })}
       </ul>
     </div>
