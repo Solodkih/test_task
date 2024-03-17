@@ -1,18 +1,14 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { setAllTasks } from '../redux/tasksSlice';
 
 import useChangeTask from './useChangeTask';
+import useDragAndDrop from './useDragAndDrop';
 
 export const Task = function ({
   done,
   name,
   id,
-  saveDragId,
-  setSaveDragId,
   showTasks,
 }) {
-  const dispatch = useDispatch();
 
   const [
     handleClickCheckbox,
@@ -24,35 +20,23 @@ export const Task = function ({
     value,
   ] = useChangeTask(done, name, id);
 
+  const [
+    handleDragStart,
+    handleDragLeave,
+    handleDragEnd,
+    handleDragOver,
+    handleDrop,
+  ] = useDragAndDrop(id, showTasks);
+
   return (
     <li
       key={id}
       draggable="true"
-      onDragStart={(e) => {
-        setSaveDragId(id);
-      }}
-      onDragLeave={(e) => {}}
-      onDragEnd={(e) => {
-        e.currentTarget.style.background = 'blue';
-      }}
-      onDragOver={(e) => {
-        e.preventDefault();
-        e.currentTarget.style.background = 'red';
-      }}
-      onDrop={(e) => {
-        const newArray = [...showTasks];
-        const indexDeleteElem = newArray.findIndex((elem) => {
-          return elem.id === saveDragId;
-        });
-        const [elem] = newArray.splice(indexDeleteElem, 1);
-        const indexPutElem = newArray.findIndex((elem) => {
-          return elem.id === id;
-        });
-        newArray.splice(indexPutElem, 0, elem);
-        dispatch(setAllTasks(newArray));
-
-        e.preventDefault();
-      }}
+      onDragStart={handleDragStart}
+      onDragLeave={handleDragLeave}
+      onDragEnd={handleDragEnd}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
     >
       <input id={id} checked={done} type="checkbox" onClick={handleClickCheckbox} />
       {!canChange && <label onClick={handleClickCheckbox}>{name}</label>}
@@ -68,3 +52,4 @@ export const Task = function ({
     </li>
   );
 };
+

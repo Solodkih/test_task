@@ -7,6 +7,9 @@ export const tasksSlice = createSlice({
     { done: false, name: 'test2', id: '2222' },
     { done: true, name: 'test3', id: '3333' },
     { done: false, name: 'test4', id: '4444' },
+    { done: true, name: 'test5', id: '5555' },
+    { done: false, name: 'test6', id: '6666' },
+    { done: true, name: 'test7', id: '7777' },
   ],
   reducers: {
     switchChecked: (state, { payload: { id, done } }) => {

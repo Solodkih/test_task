@@ -10,7 +10,6 @@ export function ListTasks() {
   const allTasks = useSelector(getAllTasks);
   const dispatch = useDispatch();
   const [task, setTask] = useState('');
-  const [saveDragId, setSaveDragId] = useState(0);
 
   const [showCheckedTask, showUnCheckedTask, showAllTasks, showTasks] =
     useFilterTasks(allTasks);
@@ -31,14 +30,7 @@ export function ListTasks() {
       Список задач
       <ul>
         {showTasks.map((elem) => {
-          return (
-            <Task
-              {...elem}
-              setSaveDragId={setSaveDragId}
-              saveDragId={saveDragId}
-              showTasks={showTasks}
-            />
-          );
+          return <Task {...elem} showTasks={showTasks} />;
         })}
       </ul>
       <input type="text" onChange={handleOnChange} value={task} />
