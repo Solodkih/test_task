@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllTasks, addTask, setAllTasks } from './redux/tasksSlice';
+import { getAllTasks, addTask } from './redux/tasksSlice';
 
 import { Task } from './Task';
 import useFilterTasks from './useFilterTasks';
+import useLocalStorage from './useLocalStorage';
 
 export function ListTasks() {
   const allTasks = useSelector(getAllTasks);
@@ -11,16 +12,10 @@ export function ListTasks() {
   const [task, setTask] = useState('');
   const [saveDragId, setSaveDragId] = useState(0);
 
-  const [filter, setFilter, showTasks] = useFilterTasks(allTasks);
+  const [showCheckedTask, showUnCheckedTask, showAllTasks, showTasks] =
+    useFilterTasks(allTasks);
 
-
-  useEffect(() => {
-    const json = localStorage.getItem('array-tasks');
-    const array = JSON.parse(json);
-    if (array) {
-      dispatch(setAllTasks(array));
-    }
-  }, []);
+  const [clearStorage, saveTasksToLocalStorage] = useLocalStorage(allTasks);
 
   const handleOnChange = function (event) {
     setTask(event.target.value);
@@ -48,42 +43,11 @@ export function ListTasks() {
       </ul>
       <input type="text" onChange={handleOnChange} value={task} />
       <button onClick={handleOnClick}>Добавить задачу</button>
-      <button
-        onClick={() => {
-          const json = JSON.stringify(arrayTasks);
-          localStorage.setItem('array-tasks', json);
-        }}
-      >
-        Сохранить в локал сторадж
-      </button>
-      <button
-        onClick={() => {
-          localStorage.clear();
-        }}
-      >
-        Сброс хранилища
-      </button>
-      <button
-        onClick={() => {
-          setFilter({ check: !filter.check, uncheck: false });
-        }}
-      >
-        Выполненные
-      </button>
-      <button
-        onClick={() => {
-          setFilter({ check: false, uncheck: !filter.uncheck });
-        }}
-      >
-        Не выполненные
-      </button>
-      <button
-        onClick={() => {
-          setFilter({ check: false, uncheck: !filter.uncheck });
-        }}
-      >
-        Все задачи
-      </button>
+      <button onClick={saveTasksToLocalStorage}>Сохранить в локал сторадж</button>
+      <button onClick={clearStorage}>Сброс хранилища</button>
+      <button onClick={showCheckedTask}>Выполненные</button>
+      <button onClick={showUnCheckedTask}>Не выполненные</button>
+      <button onClick={showAllTasks}>Все задачи</button>
     </>
   );
 }

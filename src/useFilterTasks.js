@@ -10,5 +10,17 @@ export default function useFilterTasks(allTasks) {
     showTasks = allTasks.filter((elem) => !elem.done);
   }
 
-  return [filter, setFilter, showTasks];
+  function showCheckedTask() {
+    setFilter({ check: !filter.check, uncheck: false });
+  }
+
+  function showUnCheckedTask() {
+    setFilter({ check: false, uncheck: !filter.uncheck });
+  }
+
+  function showAllTasks() {
+    setFilter({ check: false, uncheck: false });
+  }
+
+  return [showCheckedTask, showUnCheckedTask, showAllTasks, showTasks];
 }
