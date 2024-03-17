@@ -10,10 +10,19 @@ import {
 } from './redux/tasksSlice';
 
 export function ListTasks() {
-  const arrayTasks = useSelector(getAllTasks);
+  const allTasks = useSelector(getAllTasks);
   const dispatch = useDispatch();
   const [task, setTask] = useState('');
   const [saveDragId, setSaveDragId] = useState(0);
+  const [filter, setFilter] = useState({ check: false, uncheck: false });
+
+  let arrayTasks = allTasks;
+  if (filter.check) {
+    arrayTasks = allTasks.filter((elem) => elem.done);
+  }
+  if (filter.uncheck) {
+    arrayTasks = allTasks.filter((elem) => !elem.done);
+  }
 
   useEffect(() => {
     const json = localStorage.getItem('array-tasks');
@@ -64,6 +73,20 @@ export function ListTasks() {
         }}
       >
         Сброс хранилища
+      </button>
+      <button
+        onClick={() => {
+          setFilter({ check: !filter.check, uncheck: false });
+        }}
+      >
+        Выполненные
+      </button>
+      <button
+        onClick={() => {
+          setFilter({ check: false, uncheck: !filter.uncheck });
+        }}
+      >
+        Не выполненные
       </button>
     </>
   );
