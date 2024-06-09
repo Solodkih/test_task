@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllTasks, addTask, dowloadAllTasks } from '../redux/tasksSlice';
+import { getAllTasks, addTask, dowloadAllTasks, addTaskFech } from '../redux/tasksSlice';
 import './listTasks.scss';
 
 import { Task } from '../Task/Task';

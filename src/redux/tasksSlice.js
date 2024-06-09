@@ -1,9 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getAllTasksFetch } from '../AJAX';
+import { getAllTasksFetch, addTaskFetch } from '../AJAX';
 
 export const dowloadAllTasks = createAsyncThunk('dowloadAllTasks', async () => {
-  const response = await getAllTasksFetch();
-  return response;
+  const tasks = await getAllTasksFetch();
+  return tasks;
+});
+
+export const addTask = createAsyncThunk('addTask', async (task) => {
+  const newTask = await addTaskFetch(task);
+  return newTask;
 });
 
 export const tasksSlice = createSlice({
@@ -39,10 +44,13 @@ export const tasksSlice = createSlice({
     builder.addCase(dowloadAllTasks.fulfilled, (_, action) => {
       return action.payload;
     });
+    builder.addCase(addTask.fulfilled, (state, { payload }) => {
+      state.unshift(payload);
+    });
   },
 });
 
-export const { switchChecked, addTask, removeTask, changeName, setAllTasks } =
+export const { switchChecked, removeTask, changeName, setAllTasks } =
   tasksSlice.actions;
 
 export default tasksSlice.reducer;
