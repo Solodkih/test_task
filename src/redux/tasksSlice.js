@@ -1,5 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getAllTasksFetch, addTaskFetch } from '../AJAX';
+import {
+  getAllTasksFetch,
+  addTaskFetch,
+  deleteTaskFetch,
+  changeTaskFetch,
+} from '../AJAX';
 
 export const dowloadAllTasks = createAsyncThunk('dowloadAllTasks', async () => {
   const tasks = await getAllTasksFetch();
@@ -9,6 +14,16 @@ export const dowloadAllTasks = createAsyncThunk('dowloadAllTasks', async () => {
 export const addTask = createAsyncThunk('addTask', async (task) => {
   const newTask = await addTaskFetch(task);
   return newTask;
+});
+
+export const removeTask = createAsyncThunk('removeTask', async (id) => {
+  const deletedId = await deleteTaskFetch(id);
+  return deletedId;
+});
+
+export const changeTask = createAsyncThunk('changeTask', async (task) => {
+  const savedTask = await changeTaskFetch(task);
+  return savedTask;
 });
 
 export const tasksSlice = createSlice({
@@ -47,11 +62,22 @@ export const tasksSlice = createSlice({
     builder.addCase(addTask.fulfilled, (state, { payload }) => {
       state.unshift(payload);
     });
+    builder.addCase(removeTask.fulfilled, (state, { payload }) => {
+      const index = state.findIndex((elem) => {
+        return elem.id === payload;
+      });
+      if (index !== -1) state.splice(index, 1);
+    });
+    builder.addCase(changeTask.fulfilled, (state, { payload: { id, name } }) => {
+      const task = state.find((elem) => {
+        return id === elem.id;
+      });
+      task.name = name;
+    });
   },
 });
 
-export const { switchChecked, removeTask, changeName, setAllTasks } =
-  tasksSlice.actions;
+export const { switchChecked, setAllTasks } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
 

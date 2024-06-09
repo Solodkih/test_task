@@ -22,3 +22,19 @@ export function addTaskFetch(task) {
     }, 1000);
   });
 }
+
+export function deleteTaskFetch(id) {
+  return new Promise(function (resolve) {
+    setTimeout(() => {
+      resolve(id);
+    }, 1000);
+  });
+}
+
+export function changeTaskFetch(task) {
+  return new Promise(function (resolve) {
+    setTimeout(() => {
+      resolve(task);
+    }, 1000);
+  });
+}

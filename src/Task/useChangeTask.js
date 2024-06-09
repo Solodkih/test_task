@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { switchChecked, removeTask, changeName } from '../redux/tasksSlice';
+import { switchChecked, removeTask, changeTask } from '../redux/tasksSlice';
 
 export default function useChangeTask(done, name, id) {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ export default function useChangeTask(done, name, id) {
   };
 
   const handleClickSaveTask = function (e) {
-    dispatch(changeName({ id, name: value }));
+    dispatch(changeTask({ id, name: value }));
     setChange(false);
   };
 
