@@ -26,6 +26,29 @@ let tasks = [
 ];
 
 let id = 3;
+let UserId = 22;
+
+let passwordUser = '111';
+let usernameUser = '222';
+
+export function loginFetch({ password, username }) {
+  return new Promise(function (resolve, reject) {
+    setTimeout(() => {
+      if (password === passwordUser && usernameUser === username) {
+        resolve(UserId);
+      }
+      reject();
+    }, 1000);
+  });
+}
+
+export function logoutFetch() {
+    return new Promise(function (resolve) {
+      setTimeout(() => {
+        resolve(null);
+      }, 1000);
+    });
+  }
 
 export function getAllTasksFetch() {
   return new Promise(function (resolve) {
