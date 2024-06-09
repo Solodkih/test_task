@@ -1,13 +1,17 @@
-import React from 'react';
-import { Provider } from 'react-redux';
+import React, { useState } from 'react';
 import { ListTasks } from './ListTasks/ListTasks';
-import store from './redux/store';
+
+import { User } from './User/User';
+
 import './app.scss';
 
 export default function App() {
+  const [show, setShow] = useState(false);
+
   return (
-    <Provider store={store}>
-      <ListTasks />
-    </Provider>
+    <main className="w-100 d-flex justify-content-center">
+      {show && <User setShow={setShow} />}
+      <ListTasks setShow={setShow} />
+    </main>
   );
 }
