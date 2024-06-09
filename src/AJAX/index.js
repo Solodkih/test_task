@@ -1,7 +1,7 @@
 let tasks = [
-  { done: false, name: 'One', id: 1, showTasks: true },
-  { done: false, name: 'Two', id: 2, showTasks: true },
-  { done: false, name: 'Three', id: 3, showTasks: true },
+  { done: false, name: 'One', id: 1 },
+  { done: false, name: 'Two', id: 2 },
+  { done: false, name: 'Three', id: 3 },
 ];
 
 let id = 3;

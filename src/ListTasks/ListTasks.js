@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllTasks, addTask, dowloadAllTasks, addTaskFech } from '../redux/tasksSlice';
+import { getAllTasks, addTask, dowloadAllTasks } from '../redux/tasksSlice';
 import './listTasks.scss';
 
 import { Task } from '../Task/Task';
-import useFilterTasks from './useFilterTasks';
 
 export function ListTasks() {
   const allTasks = useSelector(getAllTasks);
@@ -15,9 +14,7 @@ export function ListTasks() {
     dispatch(dowloadAllTasks());
   }, []);
 
-  const [showCheckedTask, showUnCheckedTask, showAllTasks, showTasks] =
-    useFilterTasks(allTasks);
-
+  
   const handleOnChange = function (event) {
     setTask(event.target.value);
   };
@@ -42,25 +39,9 @@ export function ListTasks() {
         </button>
       </div>
       <hr />
-      <div className="list-tasks_buttons">
-        <div className="buttons_filter-buttons">
-          <button onClick={showCheckedTask}>
-            <img src="./checked-svgrepo-com.svg" alt="show checked" />
-          </button>
-          <button onClick={showUnCheckedTask}>
-            <img
-              src="./radio-button-unchecked-svgrepo-com.svg"
-              alt="show unchecked"
-            />
-          </button>
-          <button onClick={showAllTasks}>
-            <img src="./list-svgrepo-com.svg" alt="show all" />
-          </button>
-        </div>
-      </div>
       <ul>
-        {showTasks.map((elem) => {
-          return <Task key={elem.id} {...elem} showTasks={showTasks} />;
+        {allTasks.map((elem) => {
+          return <Task key={elem.id} {...elem} showTasks={allTasks} />;
         })}
       </ul>
     </div>
