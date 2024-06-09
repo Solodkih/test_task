@@ -14,7 +14,6 @@ export function ListTasks() {
     dispatch(dowloadAllTasks());
   }, []);
 
-  
   const handleOnChange = function (event) {
     setTask(event.target.value);
   };
@@ -39,7 +38,7 @@ export function ListTasks() {
         </button>
       </div>
       <hr />
-      <ul>
+      <ul className="list-group">
         {allTasks.map((elem) => {
           return <Task key={elem.idTask} {...elem} />;
         })}

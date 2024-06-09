@@ -3,45 +3,44 @@ import React from 'react';
 import useChangeTask from './useChangeTask';
 import './task.scss';
 
-export const Task = function ({ done, text, idTask, idUser, lastDate }) {
+export const Task = function ({ text, idTask, idUser, lastDate, answer }) {
   const [
-    handleClickCheckbox,
-    handleClickRemoveTask,
     handleClickChangeTask,
+    handleChangeTextTask,
+    handleChangeAnswerTask,
+    handleClickRemoveTask,
     handleClickSaveTask,
-    handleChangeChangeTask,
     canChange,
-    value,
-  ] = useChangeTask(done, text, idTask);
+    textValue,
+    answerValue,
+  ] = useChangeTask(text, answer, idTask);
 
   return (
-    <li className="task" key={idTask}>
-      <input checked={done} type="checkbox" onChange={handleClickCheckbox} />
-      <img
-        className={`task_image__${done ? 'show' : 'hide'}`}
-        src="./checked-svgrepo-com.svg"
-        alt="checked"
-        onClick={handleClickCheckbox}
+    <li className="list-group-item list-group-item-action" key={idTask}>
+      <label htmlFor={`task-${idTask}`} className="form-label">
+        Задача
+      </label>
+      <textarea
+        type="text"
+        className="form-control"
+        id={idTask}
+        onChange={handleChangeTextTask}
+        value={textValue}
+        aria-describedby="task"
+        disabled={!canChange}
       />
-      <img
-        className={`task_image__${done ? 'hide' : 'show'}`}
-        src="./radio-button-unchecked-svgrepo-com.svg"
-        alt="unchecked"
-        onClick={handleClickCheckbox}
+      <label htmlFor={idTask} className="form-label">
+        Комментарий
+      </label>
+      <textarea
+        type="text"
+        className="form-control"
+        id={idTask}
+        onChange={handleChangeAnswerTask}
+        value={answerValue}
+        aria-describedby="task"
+        disabled={!canChange}
       />
-      {!canChange && (
-        <label className="task_label" onClick={handleClickCheckbox}>
-          {text}
-        </label>
-      )}
-      {canChange && (
-        <input
-          className="task_label"
-          type="text"
-          onChange={handleChangeChangeTask}
-          value={value}
-        />
-      )}
       <button onClick={canChange ? handleClickSaveTask : handleClickChangeTask}>
         {canChange ? (
           <img src="./save-svgrepo-com.svg" alt="save" />
