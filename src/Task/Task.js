@@ -3,7 +3,7 @@ import React from 'react';
 import useChangeTask from './useChangeTask';
 import './task.scss';
 
-export const Task = function ({ done, name, id }) {
+export const Task = function ({ done, text, idTask, idUser, lastDate }) {
   const [
     handleClickCheckbox,
     handleClickRemoveTask,
@@ -12,14 +12,10 @@ export const Task = function ({ done, name, id }) {
     handleChangeChangeTask,
     canChange,
     value,
-  ] = useChangeTask(done, name, id);
+  ] = useChangeTask(done, text, idTask);
 
- 
   return (
-    <li
-      className="task"
-      key={id}
-    >
+    <li className="task" key={idTask}>
       <input checked={done} type="checkbox" onChange={handleClickCheckbox} />
       <img
         className={`task_image__${done ? 'show' : 'hide'}`}
@@ -35,7 +31,7 @@ export const Task = function ({ done, name, id }) {
       />
       {!canChange && (
         <label className="task_label" onClick={handleClickCheckbox}>
-          {name}
+          {text}
         </label>
       )}
       {canChange && (

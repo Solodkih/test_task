@@ -16,8 +16,8 @@ export const addTask = createAsyncThunk('addTask', async (task) => {
   return newTask;
 });
 
-export const removeTask = createAsyncThunk('removeTask', async (id) => {
-  const deletedId = await deleteTaskFetch(id);
+export const removeTask = createAsyncThunk('removeTask', async (idTask) => {
+  const deletedId = await deleteTaskFetch(idTask);
   return deletedId;
 });
 
@@ -30,9 +30,9 @@ export const tasksSlice = createSlice({
   name: 'tasks',
   initialState: [],
   reducers: {
-    switchChecked: (state, { payload: { id, done } }) => {
+    switchChecked: (state, { payload: { idTask, done } }) => {
       const task = state.find((elem) => {
-        return id === elem.id;
+        return idTask === elem.idTask;
       });
       task.done = done;
     },
@@ -45,9 +45,9 @@ export const tasksSlice = createSlice({
       });
       if (index !== -1) state.splice(index, 1);
     },
-    changeName: (state, { payload: { id, name } }) => {
+    changeName: (state, { payload: { idTask, name } }) => {
       const task = state.find((elem) => {
-        return id === elem.id;
+        return idTask === elem.idTask;
       });
       task.name = name;
     },
@@ -64,15 +64,15 @@ export const tasksSlice = createSlice({
     });
     builder.addCase(removeTask.fulfilled, (state, { payload }) => {
       const index = state.findIndex((elem) => {
-        return elem.id === payload;
+        return elem.idTask === payload;
       });
       if (index !== -1) state.splice(index, 1);
     });
-    builder.addCase(changeTask.fulfilled, (state, { payload: { id, name } }) => {
+    builder.addCase(changeTask.fulfilled, (state, { payload: { idTask, text } }) => {
       const task = state.find((elem) => {
-        return id === elem.id;
+        return idTask === elem.idTask;
       });
-      task.name = name;
+      task.text = text;
     });
   },
 });

@@ -1,7 +1,28 @@
 let tasks = [
-  { done: false, name: 'One', id: 1 },
-  { done: false, name: 'Two', id: 2 },
-  { done: false, name: 'Three', id: 3 },
+  {
+    done: false,
+    text: 'One',
+    answer: '1',
+    idTask: 1,
+    idUser: 22,
+    lastDate: '2024-01-13',
+  },
+  {
+    done: false,
+    text: 'Two',
+    answer: '2',
+    idTask: 2,
+    idUser: 22,
+    lastDate: '2024-01-13',
+  },
+  {
+    done: false,
+    text: 'Three',
+    answer: '3',
+    idTask: 3,
+    idUser: 22,
+    lastDate: '2024-01-13',
+  },
 ];
 
 let id = 3;
@@ -17,16 +38,16 @@ export function getAllTasksFetch() {
 export function addTaskFetch(task) {
   return new Promise(function (resolve) {
     setTimeout(() => {
-      task.id = ++id;
+      task.idTask = ++id;
       resolve(task);
     }, 1000);
   });
 }
 
-export function deleteTaskFetch(id) {
+export function deleteTaskFetch(idTask) {
   return new Promise(function (resolve) {
     setTimeout(() => {
-      resolve(id);
+      resolve(idTask);
     }, 1000);
   });
 }

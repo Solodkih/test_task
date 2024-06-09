@@ -20,7 +20,7 @@ export function ListTasks() {
   };
 
   const handleOnClick = function (e) {
-    dispatch(addTask({ name: task, id: crypto.randomUUID(), done: false }));
+    dispatch(addTask({ text: task, done: false }));
     setTask('');
   };
 
@@ -41,7 +41,7 @@ export function ListTasks() {
       <hr />
       <ul>
         {allTasks.map((elem) => {
-          return <Task key={elem.id} {...elem} showTasks={allTasks} />;
+          return <Task key={elem.idTask} {...elem} />;
         })}
       </ul>
     </div>
