@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllTasks, addTask } from '../redux/tasksSlice';
+import { getAllTasks, addTask, dowloadAllTasks } from '../redux/tasksSlice';
 import './listTasks.scss';
 
 import { Task } from '../Task/Task';
 import useFilterTasks from './useFilterTasks';
-import useLocalStorage from './useLocalStorage';
 
 export function ListTasks() {
   const allTasks = useSelector(getAllTasks);
   const dispatch = useDispatch();
   const [task, setTask] = useState('');
 
+  useEffect(() => {
+    dispatch(dowloadAllTasks());
+  }, []);
+
   const [showCheckedTask, showUnCheckedTask, showAllTasks, showTasks] =
     useFilterTasks(allTasks);
-
-  const [clearStorage, saveTasksToLocalStorage] = useLocalStorage(allTasks);
 
   const handleOnChange = function (event) {
     setTask(event.target.value);
@@ -54,14 +55,6 @@ export function ListTasks() {
           </button>
           <button onClick={showAllTasks}>
             <img src="./list-svgrepo-com.svg" alt="show all" />
-          </button>
-        </div>
-        <div className="buttons_save-buttons">
-          <button onClick={saveTasksToLocalStorage}>
-            <img src="./save-svgrepo-com.svg" alt="save" />
-          </button>
-          <button onClick={clearStorage}>
-            <img src="./delete-2-svgrepo-com.svg" alt="remove" />
           </button>
         </div>
       </div>
