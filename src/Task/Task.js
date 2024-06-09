@@ -1,10 +1,9 @@
 import React from 'react';
 
 import useChangeTask from './useChangeTask';
-import useDragAndDrop from './useDragAndDrop';
 import './task.scss';
 
-export const Task = function ({ done, name, id, showTasks }) {
+export const Task = function ({ done, name, id }) {
   const [
     handleClickCheckbox,
     handleClickRemoveTask,
@@ -15,24 +14,11 @@ export const Task = function ({ done, name, id, showTasks }) {
     value,
   ] = useChangeTask(done, name, id);
 
-  const [
-    handleDragStart,
-    handleDragLeave,
-    handleDragEnd,
-    handleDragOver,
-    handleDrop,
-  ] = useDragAndDrop(id, showTasks);
-
+ 
   return (
     <li
       className="task"
       key={id}
-      draggable="true"
-      onDragStart={handleDragStart}
-      onDragLeave={handleDragLeave}
-      onDragEnd={handleDragEnd}
-      onDragOver={handleDragOver}
-      onDrop={handleDrop}
     >
       <input checked={done} type="checkbox" onChange={handleClickCheckbox} />
       <img
