@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllTasks, addTask, dowloadAllTasks } from '../redux/tasksSlice';
-import { login, logout } from '../redux/userSlice';
+import { login, logout, getUserId } from '../redux/userSlice';
 import './listTasks.scss';
 
 import { Task } from '../Task/Task';
 
 export function ListTasks() {
+  const userId = useSelector(getUserId);
   const allTasks = useSelector(getAllTasks);
   const dispatch = useDispatch();
   const [task, setTask] = useState('');
@@ -30,24 +31,26 @@ export function ListTasks() {
   };
 
   const handleOnClick = function (e) {
-    dispatch(addTask({ text: task, done: false }));
+    dispatch(addTask({ text: task, done: false, idUser: userId }));
     setTask('');
   };
 
   return (
     <div className="list-tasks">
       <h1 className="list-tasks_title">To Do App</h1>
-      <div className="list-tasks_add">
-        <input
-          placeholder="add new task"
-          type="text"
-          onChange={handleOnChange}
-          value={task}
-        />
-        <button onClick={handleOnClick}>
-          <img src="./add-square-svgrepo-com.svg" alt="add" />
-        </button>
-      </div>
+      {userId && (
+        <div className="list-tasks_add">
+          <input
+            placeholder="add new task"
+            type="text"
+            onChange={handleOnChange}
+            value={task}
+          />
+          <button onClick={handleOnClick}>
+            <img src="./add-square-svgrepo-com.svg" alt="add" />
+          </button>
+        </div>
+      )}
       <hr />
       <form>
         <div className="mb-3">
