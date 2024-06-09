@@ -10,7 +10,7 @@ let tasks = [
   {
     done: false,
     text: 'Two',
-    answer: '2',
+    answer: '',
     idTask: 2,
     idUser: 22,
     lastDate: '2024-01-13',
@@ -18,9 +18,9 @@ let tasks = [
   {
     done: false,
     text: 'Three',
-    answer: '3',
+    answer: '',
     idTask: 3,
-    idUser: 22,
+    idUser: 33,
     lastDate: '2024-01-13',
   },
 ];

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllTasks, addTask, dowloadAllTasks } from '../redux/tasksSlice';
-import { login, getUserId, logout } from '../redux/userSlice';
+import { login, logout } from '../redux/userSlice';
 import './listTasks.scss';
 
 import { Task } from '../Task/Task';
 
 export function ListTasks() {
-  const userId = useSelector(getUserId);
   const allTasks = useSelector(getAllTasks);
   const dispatch = useDispatch();
   const [task, setTask] = useState('');
@@ -38,7 +37,6 @@ export function ListTasks() {
   return (
     <div className="list-tasks">
       <h1 className="list-tasks_title">To Do App</h1>
-      {userId}
       <div className="list-tasks_add">
         <input
           placeholder="add new task"
