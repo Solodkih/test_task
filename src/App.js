@@ -6,7 +6,7 @@ import { User } from './User/User';
 import './app.scss';
 
 export default function App() {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   return (
     <main className="w-100 d-flex justify-content-center ">

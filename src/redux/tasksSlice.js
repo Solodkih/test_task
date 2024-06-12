@@ -4,7 +4,7 @@ import {
   addTaskFetch,
   deleteTaskFetch,
   changeTaskFetch,
-} from '../AJAX';
+} from '../AJAX/index';
 
 export const dowloadAllTasks = createAsyncThunk('dowloadAllTasks', async () => {
   const tasks = await getAllTasksFetch();

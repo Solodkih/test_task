@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { loginFetch, logoutFetch } from '../AJAX';
+import { loginFetch, logoutFetch } from '../AJAX/index';
 
 export const login = createAsyncThunk(
   'user/login',
@@ -16,7 +16,7 @@ export const logout = createAsyncThunk('user/logout', async () => {
 
 export const userSlice = createSlice({
   name: 'user',
-  initialState: 22,
+  initialState: null,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(login.fulfilled, (_, action) => {
