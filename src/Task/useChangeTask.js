@@ -1,42 +1,45 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { switchChecked, removeTask, changeName } from '../redux/tasksSlice';
+import { removeTask, changeTask } from '../redux/tasksSlice';
 
-export default function useChangeTask(done, name, id) {
+export default function useChangeTask(text, answer, idTask, idUser) {
   const dispatch = useDispatch();
 
-  const [value, setValue] = useState(name);
+  const [textValue, setText] = useState(text);
+  const [answerValue, setAnswer] = useState(answer);
+
   const [canChange, setChange] = useState(false);
 
-  const handleClickCheckbox = function (e) {
-    dispatch(switchChecked({ id, done: !done }));
-  };
-
   const handleClickRemoveTask = function (e) {
-    dispatch(removeTask(id));
+    dispatch(removeTask({ idUser, idTask }));
   };
 
   const handleClickChangeTask = function (e) {
     setChange(!canChange);
-    setValue(name);
+    setText(text);
   };
 
   const handleClickSaveTask = function (e) {
-    dispatch(changeName({ id, name: value }));
+    dispatch(changeTask({ idTask, text: textValue, answer: answerValue }));
     setChange(false);
   };
 
-  const handleChangeChangeTask = function (e) {
-    setValue(e.target.value);
+  const handleChangeTextTask = function (e) {
+    setText(e.target.value);
+  };
+
+  const handleChangeAnswerTask = function (e) {
+    setAnswer(e.target.value);
   };
 
   return [
-    handleClickCheckbox,
-    handleClickRemoveTask,
     handleClickChangeTask,
+    handleChangeTextTask,
+    handleChangeAnswerTask,
+    handleClickRemoveTask,
     handleClickSaveTask,
-    handleChangeChangeTask,
     canChange,
-    value,
+    textValue,
+    answerValue,
   ];
 }

@@ -1,73 +1,83 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllTasks, addTask } from '../redux/tasksSlice';
-import './listTasks.scss';
+import { getAllTasks, addTask, dowloadAllTasks } from '../redux/tasksSlice';
+import { logout, getUserId } from '../redux/userSlice';
 
 import { Task } from '../Task/Task';
-import useFilterTasks from './useFilterTasks';
-import useLocalStorage from './useLocalStorage';
 
-export function ListTasks() {
+export function ListTasks({ setShow }) {
+  const userId = useSelector(getUserId);
   const allTasks = useSelector(getAllTasks);
   const dispatch = useDispatch();
   const [task, setTask] = useState('');
 
-  const [showCheckedTask, showUnCheckedTask, showAllTasks, showTasks] =
-    useFilterTasks(allTasks);
-
-  const [clearStorage, saveTasksToLocalStorage] = useLocalStorage(allTasks);
+  useEffect(() => {
+    dispatch(dowloadAllTasks());
+  }, []);
 
   const handleOnChange = function (event) {
     setTask(event.target.value);
   };
 
   const handleOnClick = function (e) {
-    dispatch(addTask({ name: task, id: crypto.randomUUID(), done: false }));
+    dispatch(addTask({ text: task, done: false, idUser: userId }));
     setTask('');
   };
 
   return (
-    <div className="list-tasks">
-      <h1 className="list-tasks_title">To Do App</h1>
-      <div className="list-tasks_add">
-        <input
-          placeholder="add new task"
-          type="text"
-          onChange={handleOnChange}
-          value={task}
-        />
-        <button onClick={handleOnClick}>
-          <img src="./add-square-svgrepo-com.svg" alt="add" />
-        </button>
+    <div className="w-75 min-vh-100">
+      <div className="d-flex justify-content-between py-4 px-3">
+        <h1 className="h1 text-primary">Управляющая компания "КОМФОРТ" </h1>
+        {!userId && (
+          <button
+            type="button"
+            className="btn btn-primary rounded-0 text-light"
+            onClick={() => {
+              setShow((show) => {
+                return !show;
+              });
+            }}
+          >
+            Вход
+          </button>
+        )}
+        {userId && (
+          <button
+            type="submit"
+            className="btn btn-primary rounded-0 text-light"
+            onClick={(event) => {
+              event.preventDefault();
+              dispatch(logout());
+            }}
+          >
+            Выйти
+          </button>
+        )}
       </div>
-      <hr />
-      <div className="list-tasks_buttons">
-        <div className="buttons_filter-buttons">
-          <button onClick={showCheckedTask}>
-            <img src="./checked-svgrepo-com.svg" alt="show checked" />
-          </button>
-          <button onClick={showUnCheckedTask}>
-            <img
-              src="./radio-button-unchecked-svgrepo-com.svg"
-              alt="show unchecked"
-            />
-          </button>
-          <button onClick={showAllTasks}>
-            <img src="./list-svgrepo-com.svg" alt="show all" />
-          </button>
-        </div>
-        <div className="buttons_save-buttons">
-          <button onClick={saveTasksToLocalStorage}>
-            <img src="./save-svgrepo-com.svg" alt="save" />
-          </button>
-          <button onClick={clearStorage}>
-            <img src="./delete-2-svgrepo-com.svg" alt="remove" />
-          </button>
-        </div>
-      </div>
-      <ul>
-        {showTasks.map((elem) => {
-          return <Task key={elem.id} {...elem} showTasks={showTasks} />;
+      {userId && (
+        <section className="p-3 bg-body-secondary mx-3">
+          <h2 className="h2 text-primary">Новое задание</h2>
+          <textarea
+            className="form-control border border-primary text-primary me-3 mb-3 rounded-0 fs-5"
+            placeholder="Добавить задание"
+            type="text"
+            onChange={handleOnChange}
+            value={task}
+          />
+          <div className="text-end">
+            <button
+              className="btn btn-primary m-2 rounded-0"
+              onClick={handleOnClick}
+            >
+              Добавить задание
+            </button>
+          </div>
+        </section>
+      )}
+      <h2 className="h2 text-primary text-left pt-3 ">Список заданий</h2>
+      <ul className="list-group">
+        {allTasks.map((elem) => {
+          return <Task key={elem.idTask} {...elem} />;
         })}
       </ul>
     </div>

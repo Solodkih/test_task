@@ -1,12 +1,41 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  getAllTasksFetch,
+  addTaskFetch,
+  deleteTaskFetch,
+  changeTaskFetch,
+} from '../AJAX/index';
+
+export const dowloadAllTasks = createAsyncThunk('dowloadAllTasks', async () => {
+  const tasks = await getAllTasksFetch();
+  return tasks;
+});
+
+export const addTask = createAsyncThunk('addTask', async (task) => {
+  const newTask = await addTaskFetch(task);
+  return newTask;
+});
+
+export const removeTask = createAsyncThunk(
+  'removeTask',
+  async ({ idUser, idTask }) => {
+    const deletedId = await deleteTaskFetch({ idUser, idTask });
+    return deletedId;
+  }
+);
+
+export const changeTask = createAsyncThunk('changeTask', async (task) => {
+  const savedTask = await changeTaskFetch(task);
+  return savedTask;
+});
 
 export const tasksSlice = createSlice({
   name: 'tasks',
   initialState: [],
   reducers: {
-    switchChecked: (state, { payload: { id, done } }) => {
+    switchChecked: (state, { payload: { idTask, done } }) => {
       const task = state.find((elem) => {
-        return id === elem.id;
+        return idTask === elem.idTask;
       });
       task.done = done;
     },
@@ -19,9 +48,9 @@ export const tasksSlice = createSlice({
       });
       if (index !== -1) state.splice(index, 1);
     },
-    changeName: (state, { payload: { id, name } }) => {
+    changeName: (state, { payload: { idTask, name } }) => {
       const task = state.find((elem) => {
-        return id === elem.id;
+        return idTask === elem.idTask;
       });
       task.name = name;
     },
@@ -29,10 +58,29 @@ export const tasksSlice = createSlice({
       return arrayTasks;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(dowloadAllTasks.fulfilled, (_, action) => {
+      return action.payload;
+    });
+    builder.addCase(addTask.fulfilled, (state, { payload }) => {
+      state.unshift(payload);
+    });
+    builder.addCase(removeTask.fulfilled, (state, { payload }) => {
+      const index = state.findIndex((elem) => {
+        return elem.idTask === payload;
+      });
+      if (index !== -1) state.splice(index, 1);
+    });
+    builder.addCase(changeTask.fulfilled, (state, { payload: { idTask, text } }) => {
+      const task = state.find((elem) => {
+        return idTask === elem.idTask;
+      });
+      task.text = text;
+    });
+  },
 });
 
-export const { switchChecked, addTask, removeTask, changeName, setAllTasks } =
-  tasksSlice.actions;
+export const { switchChecked, setAllTasks } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
 

@@ -1,10 +1,31 @@
+$primary: #fe7b21;
+$secondary: #474747;
+$border-widths: (
+  1: 1px,
+  2: 2px,
+  3: 3px,
+  4: 4px,
+  5: 5px,
+  16: 16px,
+  23: 23px,
+);
+
+$position-values: (
+  0: 0,
+  50: 50%,
+  100: 100%,
+  10px: -25px,
+  n60px: -60px,
+  60px: 60px,
+);
+
+@import 'bootstrap/scss/bootstrap';
+
 html,
 body,
-#root{
-  background-color: #3f72af;
+#root {
+  background-color: #b7b9bc;
   display: flex;
   justify-content: center;
   width: 100%;
 }
-
-
