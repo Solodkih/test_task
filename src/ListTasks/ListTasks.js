@@ -27,12 +27,12 @@ export function ListTasks({ setShow }) {
 
   return (
     <div className="w-75 min-vh-100">
-      <div className="d-flex justify-content-between pt-4">
-        <h1 className="h1 text-primary">Список заданий</h1>
+      <div className="d-flex justify-content-between py-4">
+        <h1 className="h1 text-primary">Управляющая компания "КОМФОРТ" </h1>
         {!userId && (
           <button
             type="submit"
-            className="btn btn-outline-primary"
+            className="btn btn-primary rounded-0"
             onClick={() => {
               setShow((show) => {
                 return !show;
@@ -45,7 +45,7 @@ export function ListTasks({ setShow }) {
         {userId && (
           <button
             type="submit"
-            className="btn btn-primary"
+            className="btn btn-primary rounded-0"
             onClick={(event) => {
               event.preventDefault();
               dispatch(logout());
@@ -56,18 +56,26 @@ export function ListTasks({ setShow }) {
         )}
       </div>
       {userId && (
-        <div className="list-tasks_add">
-          <input
+        <section className="p-3 bg-body-secondary">
+          <h2 className="h2 text-primary">Новое задание</h2>
+          <textarea
+            className="form-control border border-primary text-primary me-3 mb-3 rounded-0 fs-5"
             placeholder="Добавить задание"
             type="text"
             onChange={handleOnChange}
             value={task}
           />
-          <button onClick={handleOnClick}>
-            <img src="./add-square-svgrepo-com.svg" alt="add" height="50px" />
-          </button>
-        </div>
+          <div className="text-end">
+            <button
+              className="btn btn-primary m-2 rounded-0"
+              onClick={handleOnClick}
+            >
+              Добавить задание
+            </button>
+          </div>
+        </section>
       )}
+      <h2 className="h2 text-primary text-left pt-3 ">Список заданий</h2>
       <ul className="list-group">
         {allTasks.map((elem) => {
           return <Task key={elem.idTask} {...elem} />;

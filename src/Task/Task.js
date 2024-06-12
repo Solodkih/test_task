@@ -47,7 +47,7 @@ export const Task = function ({ text, idTask, idUser, answer }) {
           </div>
           <textarea
             type="text"
-            className="form-control border border-primary text-primary me-3 mb-3 rounded-0 border-0 fs-5"
+            className="form-control text-primary me-3 mb-3 rounded-0 border-0 fs-5"
             id={idTask}
             onChange={handleChangeTextTask}
             value={textValue}
@@ -62,7 +62,7 @@ export const Task = function ({ text, idTask, idUser, answer }) {
                   className="btn btn-primary m-2 rounded-0 "
                   onClick={handleClickSaveTask}
                 >
-                  Сохраниить
+                  Сохранить
                 </button>
               ) : (
                 <button
