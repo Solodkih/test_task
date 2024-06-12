@@ -9,7 +9,7 @@ export default function App() {
   const [show, setShow] = useState(false);
 
   return (
-    <main className="w-100 d-flex justify-content-center">
+    <main className="w-100 d-flex justify-content-center ">
       {show && <User setShow={setShow} />}
       <ListTasks setShow={setShow} />
     </main>
