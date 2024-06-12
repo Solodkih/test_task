@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllTasks, addTask, dowloadAllTasks } from '../redux/tasksSlice';
-import { login, logout, getUserId } from '../redux/userSlice';
-import './listTasks.scss';
+import { logout, getUserId } from '../redux/userSlice';
 
 import { Task } from '../Task/Task';
 
@@ -27,12 +26,12 @@ export function ListTasks({ setShow }) {
 
   return (
     <div className="w-75 min-vh-100">
-      <div className="d-flex justify-content-between py-4">
+      <div className="d-flex justify-content-between py-4 px-3">
         <h1 className="h1 text-primary">Управляющая компания "КОМФОРТ" </h1>
         {!userId && (
           <button
-            type="submit"
-            className="btn btn-primary rounded-0"
+            type="button"
+            className="btn btn-primary rounded-0 text-light"
             onClick={() => {
               setShow((show) => {
                 return !show;
@@ -45,7 +44,7 @@ export function ListTasks({ setShow }) {
         {userId && (
           <button
             type="submit"
-            className="btn btn-primary rounded-0"
+            className="btn btn-primary rounded-0 text-light"
             onClick={(event) => {
               event.preventDefault();
               dispatch(logout());
@@ -56,7 +55,7 @@ export function ListTasks({ setShow }) {
         )}
       </div>
       {userId && (
-        <section className="p-3 bg-body-secondary">
+        <section className="p-3 bg-body-secondary mx-3">
           <h2 className="h2 text-primary">Новое задание</h2>
           <textarea
             className="form-control border border-primary text-primary me-3 mb-3 rounded-0 fs-5"

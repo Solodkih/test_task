@@ -9,13 +9,10 @@ export const login = createAsyncThunk(
   }
 );
 
-export const logout = createAsyncThunk(
-  'user/logout',
-  async () => {
-    const userId = await logoutFetch();
-    return userId;
-  }
-);
+export const logout = createAsyncThunk('user/logout', async () => {
+  const userId = await logoutFetch();
+  return userId;
+});
 
 export const userSlice = createSlice({
   name: 'user',

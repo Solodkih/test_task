@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import {setAllTasks } from '../redux/tasksSlice';
+import { setAllTasks } from '../redux/tasksSlice';
 
 export default function useLocalStorage(allTasks) {
   const dispatch = useDispatch();

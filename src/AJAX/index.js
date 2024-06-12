@@ -43,12 +43,12 @@ export function loginFetch({ password, username }) {
 }
 
 export function logoutFetch() {
-    return new Promise(function (resolve) {
-      setTimeout(() => {
-        resolve(null);
-      }, 1000);
-    });
-  }
+  return new Promise(function (resolve) {
+    setTimeout(() => {
+      resolve(null);
+    }, 1000);
+  });
+}
 
 export function getAllTasksFetch() {
   return new Promise(function (resolve) {

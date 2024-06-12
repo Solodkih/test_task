@@ -4,8 +4,6 @@ import useChangeTask from './useChangeTask';
 import { getUserId } from '../redux/userSlice';
 import { useSelector } from 'react-redux';
 
-import './task.scss';
-
 export const Task = function ({ text, idTask, idUser, answer }) {
   const userId = useSelector(getUserId);
   const [
@@ -20,7 +18,7 @@ export const Task = function ({ text, idTask, idUser, answer }) {
   ] = useChangeTask(text, answer, idTask);
   return (
     <li
-      className="list-group-item mt-3 text-primary position-relative border-0 "
+      className="list-group-item mt-3 text-primary position-relative border-0 rounded-0"
       key={idTask}
     >
       <div className="d-flex pe-3 bg-body-secondary">
