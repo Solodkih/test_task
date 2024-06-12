@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { loginFetch, logoutFetch } from '../AJAX/index';
+import { loginFetch, logoutFetch } from '../AJAX/index1';
 
 export const login = createAsyncThunk(
   'user/login',

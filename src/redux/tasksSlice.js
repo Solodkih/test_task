@@ -4,7 +4,7 @@ import {
   addTaskFetch,
   deleteTaskFetch,
   changeTaskFetch,
-} from '../AJAX/index';
+} from '../AJAX/index1';
 
 export const dowloadAllTasks = createAsyncThunk('dowloadAllTasks', async () => {
   const tasks = await getAllTasksFetch();
@@ -79,8 +79,6 @@ export const tasksSlice = createSlice({
     });
   },
 });
-
-export const { switchChecked, setAllTasks } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
 
