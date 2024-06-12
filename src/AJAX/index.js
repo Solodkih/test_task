@@ -34,6 +34,8 @@ const arrayUser = [
   { username: 'user4', password: '444', id: 4 },
 ];
 
+let id = 4;
+
 export function loginFetch({ password, username }) {
   return new Promise(function (resolve, reject) {
     setTimeout(() => {
