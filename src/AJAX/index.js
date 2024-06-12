@@ -20,7 +20,7 @@ let tasks = [
     done: false,
     text: 'СНОВА ОТКЛЮЧИЛИ ВОДУ!! КОГДА ЭТО ПРЕКРАТИТСЯ',
     answer:
-      'Авария на линии, сказали к утру сделают. Машина с водой у боковова входа.',
+      'Авария на линии, сказали к утру сделают. Машина с водой у бокового входа.',
     idTask: 3,
     idUser: 3,
     lastDate: '2024-01-13',
@@ -33,6 +33,7 @@ const arrayUser = [
   { username: 'user3', password: '333', id: 3 },
   { username: 'user4', password: '444', id: 4 },
 ];
+let id = 4;
 
 export function loginFetch({ password, username }) {
   return new Promise(function (resolve, reject) {
