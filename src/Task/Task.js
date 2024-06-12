@@ -15,7 +15,7 @@ export const Task = function ({ text, idTask, idUser, answer }) {
     canChange,
     textValue,
     answerValue,
-  ] = useChangeTask(text, answer, idTask);
+  ] = useChangeTask(text, answer, idTask, idUser);
   return (
     <li
       className="list-group-item mt-3 text-primary position-relative border-0 rounded-0"

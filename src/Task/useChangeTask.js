@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { removeTask, changeTask } from '../redux/tasksSlice';
 
-export default function useChangeTask(text, answer, idTask) {
+export default function useChangeTask(text, answer, idTask, idUser) {
   const dispatch = useDispatch();
 
   const [textValue, setText] = useState(text);
@@ -11,7 +11,7 @@ export default function useChangeTask(text, answer, idTask) {
   const [canChange, setChange] = useState(false);
 
   const handleClickRemoveTask = function (e) {
-    dispatch(removeTask(idTask));
+    dispatch(removeTask({ idUser, idTask }));
   };
 
   const handleClickChangeTask = function (e) {

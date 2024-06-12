@@ -16,10 +16,13 @@ export const addTask = createAsyncThunk('addTask', async (task) => {
   return newTask;
 });
 
-export const removeTask = createAsyncThunk('removeTask', async (idTask) => {
-  const deletedId = await deleteTaskFetch(idTask);
-  return deletedId;
-});
+export const removeTask = createAsyncThunk(
+  'removeTask',
+  async ({ idUser, idTask }) => {
+    const deletedId = await deleteTaskFetch({ idUser, idTask });
+    return deletedId;
+  }
+);
 
 export const changeTask = createAsyncThunk('changeTask', async (task) => {
   const savedTask = await changeTaskFetch(task);
