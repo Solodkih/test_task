@@ -21,53 +21,60 @@ export function User({ setShow }) {
   };
 
   return (
-    <form className="position-absolute top-50 start-50 translate-middle z-3 bg-info p-3 rounded-3">
-      <h2 className="h2">Вход</h2>
-      <div className="mb-3">
-        <label htmlFor="InputEmail" className="form-label">
-          Адрес электронной почты
-        </label>
-        <input
-          type="email"
-          className="form-control"
-          id="InputEmail"
-          onChange={handleChangeUserName}
-          value={username}
-        />
-      </div>
-      <div className="mb-3">
-        <label htmlFor="InputPassword" className="form-label">
-          Пароль
-        </label>
-        <input
-          type="password"
-          className="form-control"
-          id="InputPassword"
-          onChange={handleChangePassword}
-          value={password}
-        />
-      </div>
-      <button
-        type="submit"
-        className="btn btn-primary"
-        onClick={(event) => {
-          event.preventDefault();
-          dispatch(login({ password, username }));
-        }}
-      >
-        Отправить
-      </button>
+    <form
+      className="position-absolute top-50 start-50 translate-middle z-3 bg-secondary p-3 rounded-0 border-0 px-0 py-0"
+      style={{ height: 405 + 'px', width: 415 + 'px' }}
+    >
+      <h2 className="h2 bg-success p-3 mb-4 text-light">Вход</h2>
       <button
         type="button"
-        className="btn btn-primary"
+        className="btn position-absolute position-absolute top-0 end-0"
         onClick={() => {
           setShow((show) => {
             return !show;
           });
         }}
       >
-        Закрыть
+        <img src="./Clouse.png" alt="clouse" height="60px" width="60px" />
       </button>
+      <div className="d-flex p-3">
+        <label htmlFor="InputEmail" className="form-label">
+          <img src="./Username.png" alt="username" height="60px" width="60px" />
+        </label>
+        <input
+          type="email"
+          className="form-control rounded-0 border-0 bg-body-secondary"
+          id="InputEmail"
+          onChange={handleChangeUserName}
+          value={username}
+          style={{ height: 60 + 'px' }}
+        />
+      </div>
+      <div className="d-flex p-3">
+        <label htmlFor="InputPassword" className="form-label">
+          <img src="./password.png" alt="username" height="60px" width="60px" />
+        </label>
+        <input
+          type="password"
+          className="form-control rounded-0 border-0 bg-body-secondary"
+          id="InputPassword"
+          onChange={handleChangePassword}
+          value={password}
+          style={{ height: 60 + 'px' }}
+        />
+      </div>
+      <div className="p-3 w-100">
+        <button
+          type="submit"
+          className="btn btn-success p-3 w-100 rounded-0 border-0 fs-4"
+          onClick={(event) => {
+            event.preventDefault();
+            dispatch(login({ password, username }));
+          }}
+        >
+          Вход
+        </button>
+      </div>
     </form>
   );
 }
