@@ -102,7 +102,7 @@ export const Task = function ({ text, idTask, idUser, answer }) {
             </div>
             <textarea
               type="text"
-              className="form-control border-0 text-success rounded-0 mb-4 ms-4"
+              className="form-control border-0 text-success rounded-0 mb-4 ms-4 fs-5"
               id={idTask}
               onChange={handleChangeAnswerTask}
               value={answerValue}
